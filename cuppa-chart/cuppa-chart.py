@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 '''USAGE:  prepare_data.py -sample {sampleId} -sample_data {path}/{sampleId}.cup.data.csv -output_dir {path}/{output_dir}'''
 
 try:
