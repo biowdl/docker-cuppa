@@ -1,0 +1,8 @@
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("grid")
+install.packages("gridExtra")
+install.packages("ggplot2")
+install.packages("cowplot")
+install.packages("stringi")
+install.packages("gtable")
