@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Wrapper script for running the health-checker JAR package
+# Wrapper script for running the cuppa JAR package
 #
 # This script was copied from the biopet-sampleconfig conda recipe:
 # https://github.com/bioconda/bioconda-recipes/blob/master/recipes/biopet-sampleconfig/biopet-sampleconfig.py
@@ -14,7 +14,7 @@ from os import access
 from os import getenv
 from os import X_OK
 
-jar_file = 'cuppa_v1.6.jar'
+jar_file = 'cuppa.jar'
 
 default_jvm_mem_opts = []
 

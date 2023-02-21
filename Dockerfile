@@ -2,20 +2,27 @@ FROM debian:10.9-slim
 
 RUN mkdir -p /usr/local/share/cuppa/ /usr/share/man/man1
 
-COPY cuppa_v1.6.jar /usr/local/share/cuppa/
 COPY cuppa /usr/local/share/cuppa/
-COPY LICENSE /usr/local/share/cuppa/
-COPY CupGenerateReport.R /usr/local/share/cuppa/
+COPY cuppa-chart-wrapper /usr/local/share/cuppa/
+COPY CupGenerateReport /usr/local/share/cuppa/
 COPY install.R /usr/local/share/cuppa/
-ADD cuppa-chart /usr/local/share/cuppa/cuppa-chart
 
-RUN chmod 777 /usr/local/share/cuppa/cuppa && \
-    chmod 777 /usr/local/share/cuppa/cuppa-chart/cuppa-chart.py && \
-    chmod 777 /usr/local/share/cuppa/CupGenerateReport.R && \
-    apt update && \
-    apt -y install default-jre python3 python3-pip r-base && \
+RUN apt update && \ 
+    apt -y install default-jre python3 python3-pip r-base wget && \
+    wget https://github.com/hartwigmedical/hmftools/releases/download/cuppa-v1.7.1/cuppa.jar && \
+    mv -t /usr/local/share/cuppa/ cuppa.jar && \
+    wget https://github.com/hartwigmedical/hmftools/archive/refs/tags/cuppa-v1.7.1.zip && \
+    unzip cuppa-v1.7.1.zip && \
+    mv -t /usr/local/share/cuppa \
+      hmftools-cuppa-v1.7.1/cuppa/src/main/resources/cuppa-chart \
+      hmftools-cuppa-v1.7.1/cuppa/src/main/resources/r/CupGenerateReport_pipeline.R \
+      hmftools-cuppa-v1.7.1/LICENSE && \
+    rm -r hmftools-cuppa-v1.7.1 cuppa-v1.7.1.zip && \
     pip3 install -r /usr/local/share/cuppa/cuppa-chart/requirements.txt && \
     Rscript /usr/local/share/cuppa/install.R && \
+    chmod 755 /usr/local/share/cuppa/cuppa && \
+    chmod 755 /usr/local/share/cuppa/cuppa-chart-wrapper && \
+    chmod 755 /usr/local/share/cuppa/CupGenerateReport && \
     ln -s /usr/local/share/cuppa/cuppa /usr/local/bin/cuppa && \
-    ln -s /usr/local/share/cuppa/cuppa-chart/cuppa-chart.py /usr/local/bin/cuppa-chart && \
-    ln -s /usr/local/share/cuppa/CupGenerateReport.R /usr/local/bin/CupGenerateReport
+    ln -s /usr/local/share/cuppa/cuppa-chart-wrapper /usr/local/bin/cuppa-chart && \
+    ln -s /usr/local/share/cuppa/CupGenerateReport /usr/local/bin/CupGenerateReport

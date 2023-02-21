@@ -1,0 +1,3 @@
+#! /bin/bash
+
+python3 "/usr/local/share/cuppa/cuppa-chart/cuppa-chart.py" "$@" || exit 1

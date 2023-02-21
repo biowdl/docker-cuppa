@@ -1,0 +1,3 @@
+#! /bin/bash
+
+Rscript "/usr/local/share/cuppa/CupGenerateReport_pipeline.R" "$@" || exit 1
